@@ -94,6 +94,10 @@ server.post('/api/posts/:id/comments', (req, res) => {
     const postId = req.params.id;
     const commentObject = req.body
 
+    // adding post_id parameter to the commentObject 
+    // for the insertComment function to work:
+    commentObject.post_id = postId
+
     // Will need to create if statements for just in case the 
     // post id doesn't exist.
     db.findById(postId) 
