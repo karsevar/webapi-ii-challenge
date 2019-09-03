@@ -89,6 +89,45 @@ server.delete('/api/posts/:id', (req, res) => {
         })
 })
 
+// PUT request for posts functionality:
+server.put('/api/posts/:id', (req, res) => {
+    const postId = req.params.id;
+    const postUpdate = req.body;
+    
+    console.log(postUpdate);
+
+    db.findById(postId) 
+        .then(result => {
+            if (result.length > 0) {
+
+                if (postUpdate.title && postUpdate.contents) {
+                    db.update(postId, postUpdate)
+                        .then(results => {
+                            // console.log(results) 
+                            // res.status(200).json(results)
+
+                            // returning the updated object:
+                            db.findById(postId) 
+                                .then(success => {
+                                    res.status(200).json(success)
+                                })
+                                .catch(err => {
+                                    console.log(err)
+                                })
+                        })
+                        .catch(err => {
+                            res.status(500).json({ error: "The post information could not be modified." })
+                        })
+                } else {
+                    res.status(400).json({ errorMessage: "Please provide title and contents for the post." })
+                }
+
+            } else {
+                res.status(404).json({ message: "The post with the specified ID does not exist." })
+            }
+        })
+})
+
 // GET request for comments using post id:
 server.get('/api/posts/:id/comments', (req, res) => {
     const postId = req.params.id;
