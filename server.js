@@ -10,47 +10,6 @@ server.use('/api/posts', postRoute)
 
 module.exports = server;
 
-// // Server test on the root url without /api extension.
-// server.get('/', (req, res) => {
-//     res.status(200).json({message: 'Success!!!'})
-// })
-
-// // GET request for all the posts in database:
-// server.get('/api/posts', (req, res) => {
-//     db.find() 
-//         .then(result => res.status(201).json(result))
-//         .catch(error => res.status(500).json({ error: "The posts information could not be retrieved." }))
-// })
-
-// // POST request functionality for posts in the data base:
-// server.post('/api/posts', (req, res) => {
-
-//     const postObject = req.body;
-//     console.log('Post request in the posts section', req.body)
-
-//     if (postObject.contents && postObject.title) {
-//         db.insert(postObject)
-//             .then(result => {
-//                 // res.status(200).json(result)
-
-//                 // A round about way to return the newly 
-//                 // created post with the success message.
-//                 db.findById(result.id)
-//                     .then(result => {
-//                         res.status(201).json(result)
-//                     })
-//                     .catch(err => {
-//                         console.log(err) 
-//                     })
-//             })
-//             .catch(err => {
-//                 res.status(500).json({ error: "There was an error while saving the post to the database" })
-//             })
-//     } else {
-//         res.status(400).json({ errorMessage: "Please provide title and contents for the post." })
-//     }
-// })
-
 // // GET request for posts according to id:
 // server.get('/api/posts/:id', (req, res) => {
 //     const id = req.params.id;
